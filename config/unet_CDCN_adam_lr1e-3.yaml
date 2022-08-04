@@ -28,21 +28,22 @@ dataset:
   sigma: [0.5,0.5,0.5]
 model:
   base: 'LGSC'
+  encoder_arch: 'one_stream_arch' # types = (one_stream_arch, two_stream_arch)
   backbone: 'lcnet_small' # types = (lcnet_small, liveness_small, MobileNetV2_small)
   header_type: 'patch_pixel' # types = (pixel, binary, combined, patch_pixel, binary_classification)
   pretrained: False
   num_output: 2
   image_size: [224,224] # types = ([224,224], [128,128])  
   patch_size: 16 # types = (8, 16, 28)  
-  map_size: 14  # types = (28, 14, 8)  
+  map_size: 112  # types = (28, 14, 8)  
   smoothing: True
   dropout_prob: 0.2
 train:
-  batch_size: 300 # types = (1024, 512, 300, 256, 200, 8)  
+  batch_size: 256 # types = (1024, 512, 300, 256, 200, 8)  
   optimizer: 'AdamW' # types = (adam, AdamW)
-  lr: 0.001
-  warm_up_ratio: 0.01 # types = (0, 0.01, 0.1)
-  num_epochs: 20 # types = (20, 50, 100)
+  lr: 0.0001
+  warm_up_ratio: 0.1 # types = (0, 0.01, 0.1)
+  num_epochs: 50 # types = (20, 50, 100)
   loss:
     w_cls: 0.0
     w_reg: 1.0
@@ -52,4 +53,4 @@ train:
 #     w_reg: 3.0
 #     w_tri: 1.0
 test:
-  batch_size: 128 # types = (512, 256, 128, 8)  
+  batch_size: 256 # types = (512, 256, 128, 8)  

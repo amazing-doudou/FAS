@@ -1,0 +1,47 @@
+output_dir: 'deep-pix-bis-pad.pytorch-master/output/'
+log_dir: 'deep-pix-bis-pad.pytorch-master/log'
+device: 'gpu'
+dataset:
+  name: 'rose'
+  root: '/data/4ffb7bc8fd8d4055bca70b7dc401efbb/label_normal/'
+#  root: '/data/4ffb7bc8fd8d4055bca70b7dc401efbb/'
+#  root: 'deep-pix-bis-pad.pytorch-master/data/nuaa/'
+#   root: '/data/0b5e468efcfd4dd4b61461527c6f9d94/'
+#   root: '/data/e6a31fbc6b594c0795e6add0230d4bab/'
+#   root: '/data/4bc65ee9875d4554bea45da9c90aa461/'
+  augmentation:
+    horizontal_flip: True
+    vertial_flip: False
+    rotation: 10
+  train_set: 'label_normal_train_09_new.csv'
+  test_set: 'label_normal_validate_01_new.csv'
+#  train_set: 'label_train_07.csv'
+#  test_set: 'label_verify_03.csv'
+#  train_set: 'train.csv'
+#  test_set: 'test.csv'
+  mean: [0.5,0.5,0.5]
+  sigma: [0.5,0.5,0.5]
+model:
+  base: 'LGSC'
+  backbone: 'lcnet_small'
+#  backbone: 'MobileNetV2_small'
+  pretrained: False
+  num_output: 2
+  image_size: [128,128]
+  map_size: 16
+  smoothing: True
+  dropout_prob: 0.2
+train:
+  batch_size: 2048
+  optimizer: 'adam'
+  lr: 0.001
+  num_epochs: 100
+  loss:
+    w_cls: 5.0
+    w_reg: 3.0
+    w_tri: 1.0
+test:
+  batch_size: 64
+  score_type: 'pixel' # types = (pixel, binary, combined)
+  
+  
